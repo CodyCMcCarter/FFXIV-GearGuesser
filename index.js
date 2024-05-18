@@ -30,6 +30,12 @@ app.get("/checkGuess", (req, res) => {
     
 });
 
+app.get("/endGame", (req, res) => {
+    gearInfo = null;
+    gearImage = null;
+    res.redirect("/");
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
