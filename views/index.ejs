@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>FFXIV Gear Guesser</title>
+</head>
+<body>
+    <h1>FFXIV Gear Guesser</h1>
+    <form id="gameForm" method="get">
+        <%if(locals.gearInfo) {%>
+            <img src="<%=gearImage%>"/>
+            <input id="guess">
+            <input id="makeGuess" type="submit" value="Guess" formaction="/checkGuess">
+        <%} else {%>
+            <input id="startGame" type="submit" value="Start Game" formaction="/startGame">
+        <%}%>
+    </form>
+</body>
+</html>
