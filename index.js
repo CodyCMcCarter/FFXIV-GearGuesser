@@ -13,7 +13,7 @@ var gearInfo;
 var gearImage;
 
 app.get("/", async (req, res) => {
-    res.render("index.ejs");
+    res.render("index.ejs", { gearInfo: gearInfo, gearImage: gearImage });
 });
 
 app.get("/startGame", async (req, res) => {
@@ -23,7 +23,7 @@ app.get("/startGame", async (req, res) => {
     let imageResponse = await axios.get(API_URL + gearInfo.IconHD, { responseType: "arraybuffer" });
     let buffer = Buffer.from(imageResponse.data, 'binary').toString("base64");
     gearImage = `data:${imageResponse.headers["content-type"]};base64,${buffer}`;
-    res.render("index.ejs", { gearInfo: gearInfo, gearImage: gearImage });
+    res.redirect("/");
 });
 
 app.get("/checkGuess", (req, res) => {
