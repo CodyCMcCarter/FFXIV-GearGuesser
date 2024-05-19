@@ -8,32 +8,55 @@
 </head>
 <body>
     <h1>FFXIV Gear Guesser</h1>
-    <% if(locals.gearInfo) {%>
+    <%if(locals.gearInfo) {%>
     <form id="gameForm" method="POST">
+        <%if(locals.result) {%>
+            <h2><%=result%></h2>
+            <h2><%=gearInfo.Name%></h2>
+        <%} else if(guesses.length >= 4){%>
+            <%var splitName = gearInfo.Name.split(' ')%>
+            <%var i = 1%>
+            <h2>
+                <%var clue = splitName[0] + " "%>
+                <%if(clue === "The "){%>
+                    <%clue = clue + splitName[1] + " "%>
+                    <%i = 2%>
+                <%}%>
+                <%for(i; i < splitName.length; i++){%>
+                    <%for(var x = 0; x < splitName[i].length; x++) {%>
+                        <%clue = clue + "_"%>
+                    <%}%>
+                    <%clue = clue + " "%>
+                <%}%>
+                <%=clue%>
+            </h2>
+        <%}%>
         <img src="<%=gearImage%>"/>
-        <% if(guesses.length >= 1) {%>
+        <%if(guesses.length >= 1) {%>
             <p>Equip Level: <%=gearInfo.LevelEquip%></p>
             <p>Item Level: <%=gearInfo.LevelItem%></p>
-            <% if(guesses.length >= 2) {%>
-                <ul>
-                    <% for(var i = 0; i < statNames.length; i++) {%>
-                        <li><%=statNames[i].replace(/([A-Z])/g, ' $1').trim()%>: <%=statValues[i]%></li>
-                    <%}%>
-                </ul>
-                <% if(guesses.length >= 3){%>
-                    <p>Released: <%=gearInfo.GamePatch.ExName%>, <%=gearInfo.GamePatch.Name%></p>
+            <p>Released: <%=gearInfo.GamePatch.ExName%>, <%=gearInfo.GamePatch.Name%></p>
+            <%if(guesses.length >= 2) {%>
+                <p>Repair: <%=gearInfo.ClassJobRepair.NameEnglish%></p>
+                <%if(guesses.length >= 3) {%>
+                    <h4>Stats:</h4>
+                    <ul>
+                        <%for(var i = 0; i < statNames.length; i++) {%>
+                            <li><%=statNames[i].replace(/([A-Z])/g, ' $1').trim()%>: <%=statValues[i]%></li>
+                        <%}%>
+                    </ul>
+                    <p><%=gearInfo.ClassJobCategory.Name.replaceAll(' ', ', ')%></p>
                 <%}%>
             <%}%>
         <%}%>
         <h3>Guesses:</h3>
-        <% for(var i = 0; i < guesses.length; i++){%>
+        <%for(var i = 0; i < guesses.length; i++){%>
             <p><%=guesses[i]%></p>
         <%}%>
-        <% if(!locals.result) {%>
+        <%if(!locals.result) {%>
             <input type="text" name="guess">
             <input id="makeGuess" type="submit" value="Guess" formaction="/checkGuess">
         <%} else {%>
-            <h2><%=result%></h2>
             <input id="restartGame" type="submit" value="Play Again?" formaction="/endGame">
         <%}%>
         </form>
