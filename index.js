@@ -15,6 +15,7 @@ var guesses = [];
 var statNames = [];
 var statValues = [];
 var result;
+var close = [];
 
 app.get("/", async (req, res) => {
     res.render("index.ejs", { 
@@ -23,7 +24,8 @@ app.get("/", async (req, res) => {
         guesses: guesses, 
         statNames: statNames, 
         statValues: statValues, 
-        result: result
+        result: result, 
+        close: close
     });
 });
 
@@ -44,10 +46,31 @@ app.get("/startGame", async (req, res) => {
 
 app.post("/checkGuess", (req, res) => {
     guesses.push(req.body.guess);
+    let guessArray = req.body.guess.split(" ");
+    let answerArray = gearInfo.Name.split(" ");
     if (req.body.guess.toLowerCase() === gearInfo.Name.toLowerCase()) {
         result = "Duty Complete!";
     } else if (guesses.length >= 5) {
         result = "Duty Failed..."
+    } else {
+        close = [];
+        let yth = "";
+        for(let i = 0; i < guessArray.length; i++){
+            for(let y = 0; y < answerArray.length; y++){
+                if(guessArray[i].toLowerCase() === answerArray[y].toLowerCase()){
+                    if(y === 0) {
+                        yth = y+1 + "st";
+                    } else if(y === 1) {
+                        yth = y+1 + "nd";
+                    } else if(y === 2) {
+                        yth = y+1 + "rd";
+                    } else {
+                        yth = y+1 + "th";
+                    }
+                    close.push(guessArray[i] + " matches the " + yth + " word")
+                }
+            }
+        }
     }
     res.redirect("/");
 });
