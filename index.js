@@ -43,9 +43,8 @@ app.get("/startGame", async (req, res) => {
 });
 
 app.post("/checkGuess", (req, res) => {
-    console.log(guesses.length);
     guesses.push(req.body.guess);
-    if (req.body.guess === gearInfo.Name) {
+    if (req.body.guess.toLowerCase() === gearInfo.Name.toLowerCase()) {
         result = "Duty Complete!";
     } else if (guesses.length >= 5) {
         result = "Duty Failed..."
