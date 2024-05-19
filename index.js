@@ -58,16 +58,11 @@ app.post("/checkGuess", (req, res) => {
         for(let i = 0; i < guessArray.length; i++){
             for(let y = 0; y < answerArray.length; y++){
                 if(guessArray[i].toLowerCase() === answerArray[y].toLowerCase()){
-                    if(y === 0) {
-                        yth = y+1 + "st";
-                    } else if(y === 1) {
-                        yth = y+1 + "nd";
-                    } else if(y === 2) {
-                        yth = y+1 + "rd";
+                    if(i === y) {
+                        close.push(guessArray[i] + " is correct!")
                     } else {
-                        yth = y+1 + "th";
+                        close.push(guessArray[i] + " is correct, but out of place.")
                     }
-                    close.push(guessArray[i] + " matches the " + yth + " word")
                 }
             }
         }
