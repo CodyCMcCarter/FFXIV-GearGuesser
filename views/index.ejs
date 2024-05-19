@@ -8,14 +8,39 @@
 </head>
 <body>
     <h1>FFXIV Gear Guesser</h1>
-    <form id="gameForm" method="get">
-        <%if(locals.gearInfo) {%>
-            <img src="<%=gearImage%>"/>
-            <input id="guess">
+    <% if(locals.gearInfo) {%>
+    <form id="gameForm" method="POST">
+        <img src="<%=gearImage%>"/>
+        <% if(guesses.length >= 1) {%>
+            <p>Equip Level: <%=gearInfo.LevelEquip%></p>
+            <p>Item Level: <%=gearInfo.LevelItem%></p>
+            <% if(guesses.length >= 2) {%>
+                <ul>
+                    <% for(var i = 0; i < statNames.length; i++) {%>
+                        <li><%=statNames[i].replace(/([A-Z])/g, ' $1').trim()%>: <%=statValues[i]%></li>
+                    <%}%>
+                </ul>
+                <% if(guesses.length >= 3){%>
+                    <p>Released: <%=gearInfo.GamePatch.ExName%>, <%=gearInfo.GamePatch.Name%></p>
+                <%}%>
+            <%}%>
+        <%}%>
+        <h3>Guesses:</h3>
+        <% for(var i = 0; i < guesses.length; i++){%>
+            <p><%=guesses[i]%></p>
+        <%}%>
+        <% if(!locals.result) {%>
+            <input type="text" name="guess">
             <input id="makeGuess" type="submit" value="Guess" formaction="/checkGuess">
         <%} else {%>
-            <input id="startGame" type="submit" value="Start Game" formaction="/startGame">
+            <h2><%=result%></h2>
+            <input id="restartGame" type="submit" value="Play Again?" formaction="/endGame">
         <%}%>
-    </form>
+        </form>
+    <%} else {%>
+        <form id="gameForm" method="GET">
+            <input id="startGame" type="submit" value="Start Game" formaction="/startGame">
+        </form>
+    <%}%>
 </body>
 </html>
