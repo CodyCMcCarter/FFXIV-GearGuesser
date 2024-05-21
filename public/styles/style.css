@@ -1,0 +1,64 @@
+body {
+    background-color: #262626;
+    color: #f7f7f7;
+}
+
+h1 {
+    margin-top: 0;
+    width: 100%;
+}
+
+h2 {
+    margin-top: 7px;
+}
+
+.game-border {
+    background-image: linear-gradient(to bottom, #d3cdb7 0%, #706756 5%, #706756 100%);
+    border-radius: 7px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.game-background {
+    border-radius: 7px;
+    margin: 3px;
+    padding: 10px 15px;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#676767+0,393939+5,393939+100 */
+    background: linear-gradient(to bottom,  #676767 0%,#393939 5%,#393939 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+form {
+    color: #dcd9ca;
+    display: flex;
+    flex-direction: column;
+}
+
+.gear-icon {
+    width: 80px;
+}
+
+.button {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#5b5b5b+0,4c4c4c+47,3f3e3e+50,464646+100 */
+    background: linear-gradient(to bottom,  #5b5b5b 0%,#4c4c4c 47%,#3f3e3e 50%,#464646 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    border-radius: 25px;
+    border: 1px solid black;
+    color: white;
+    height: 25px;
+    width: 125px;
+}
+
+.guess-box {
+    background-color: #1b1b1b;
+    border: none;
+    color: #dcd9ca;
+    padding: 5px;
+    width: 200px;
+}
+
+.job-icon {
+    width: 40px;
+}
+
+ul {
+    list-style: none;
+}

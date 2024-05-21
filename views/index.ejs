@@ -7,69 +7,92 @@
     <title>FFXIV Gear Guesser</title>
 </head>
 <body>
-    <h1>FFXIV Gear Guesser</h1>
-    <%if(locals.gearInfo) {%>
-    <form id="gameForm" method="POST">
-        <%if(locals.result) {%>
-            <h2><%=result%></h2>
-            <h2><%=gearInfo.Name%></h2>
-        <%} else if(guesses.length >= 4 || locals.result){%>
-            <%let splitName = gearInfo.Name.split(' ')%>
-            <%let i = 1%>
-            <h2>
-                <%let clue = splitName[0] + " "%>
-                <%if(clue === "The "){%>
-                    <%clue = clue + splitName[1] + " "%>
-                    <%i = 2%>
-                <%}%>
-                <%for(i; i < splitName.length; i++){%>
-                    <%for(let x = 0; x < splitName[i].length; x++) {%>
-                        <%clue = clue + "_"%>
+    <div class="game-border">
+        <div class="game-background">
+            <h1>FFXIV Gear Guesser</h1>
+            <%if(locals.gearInfo) {%>
+                <form id="gameForm" method="POST">
+                    <%if(locals.result) {%>
+                        <h2 class="game-result"><%=result%></h2>
+                        <h2 class="gear-name"><%=gearInfo.Name%></h2>
+                    <%} else if(guesses.length >= 4 || locals.result){%>
+                        <h2>Duty Commenced!</h2>
+                        <%let splitName = gearInfo.Name.split(' ')%>
+                        <%let i = 1%>
+                        <h2 class="gear-name">
+                            <%let clue = splitName[0] + " "%>
+                            <%if(clue === "The "){%>
+                                <%clue = clue + splitName[1] + " "%>
+                                <%i = 2%>
+                            <%}%>
+                            <%for(i; i < splitName.length; i++){%>
+                                <%for(let x = 0; x < splitName[i].length; x++) {%>
+                                    <%clue = clue + "_"%>
+                                <%}%>
+                                <%clue = clue + " "%>
+                            <%}%>
+                            <%=clue%>
+                        </h2>
+                    <%} else {%>
+                        <h2>Duty Commenced!</h2>
                     <%}%>
-                    <%clue = clue + " "%>
-                <%}%>
-                <%=clue%>
-            </h2>
-        <%}%>
-        <img src="<%=gearImage%>"/>
-        <%if(guesses.length >= 1 || locals.result) {%>
-            <p>Equip Level: <%=gearInfo.LevelEquip%></p>
-            <p>Item Level: <%=gearInfo.LevelItem%></p>
-            <p>Released: <%=gearInfo.GamePatch.ExName%>, <%=gearInfo.GamePatch.Name%></p>
-            <%if(guesses.length >= 2 || locals.result) {%>
-                <p>Repair: <%=gearInfo.ClassJobRepair.NameEnglish%></p>
-                <%if(guesses.length >= 3 || locals.result) {%>
-                    <h4>Stats:</h4>
-                    <ul>
-                        <%for(let i = 0; i < statNames.length; i++) {%>
-                            <li><%=statNames[i].replace(/([A-Z])/g, ' $1').trim()%>: <%=statValues[i]%></li>
+                    <img class="gear-icon" src="<%=gearImage%>"/>
+                    <%if(guesses.length >= 1 || locals.result) {%>
+                        <p class="equip-lvl">Equip Level: <%=gearInfo.LevelEquip%></p>
+                        <p class="item-lvl">Item Level: <%=gearInfo.LevelItem%></p>
+                        <p class="release-patch">Released: <%=gearInfo.GamePatch.ExName%>, <%=gearInfo.GamePatch.Name%></p>
+                        <%if(guesses.length >= 2 || locals.result) {%>
+                            <p class="repair-job">Repair: </p>
+                            <img class="job-icon" src="icons/<%=gearInfo.ClassJobRepair.NameEnglish%>.png">
+                            <p><%=gearInfo.ClassJobRepair.NameEnglish%></p>
+                            <%if(guesses.length >= 3 || locals.result) {%>
+                                <h4 class="stats-header">Stats:</h4>
+                                <ul class="stats-list">
+                                    <%for(let i = 0; i < statNames.length; i++) {%>
+                                        <li><%=statNames[i].replace(/([A-Z])/g, ' $1').trim()%>: <%=statValues[i]%></li>
+                                    <%}%>
+                                </ul>
+                                <div class="equip-jobs">
+                                    <h4>Jobs:</h4>
+                                    <%let jobs = gearInfo.ClassJobCategory.Name.split(" ")%>
+                                    <%jobs.forEach((job) => {%>
+                                        <div class="job-container">
+                                            <img class="job-icon" src="icons/<%=job%>.png">
+                                            <p><%=job%></p>
+                                        </div>
+
+                                    <%})%>
+                                </div>
+                            <%}%>
                         <%}%>
-                    </ul>
-                    <p><%=gearInfo.ClassJobCategory.Name.replaceAll(' ', ', ')%></p>
-                <%}%>
+                    <%}%>
+                    <h3>Guesses:</h3>
+                    <%for(let i = 0; i < guesses.length; i++){%>
+                        <%if(guesses[i] === "") {%>
+                            <p>[blank]</p>
+                        <%} else {%>
+                            <p><%=guesses[i]%></p>
+                        <%}%>
+                    <%}%>
+                    <%if(!locals.result) {%>
+                        <%if(locals.close) {%>
+                            <h4>Hints:</h4>
+                            <%for(let q = 0; q < close.length; q++) {%>
+                                <p><%=close[q]%></p>
+                            <%}%>
+                        <%}%>
+                        <input class="guess-box" type="text" name="guess" placeholder="Make a guess">
+                        <input class="button" type="submit" value="Guess" formaction="/checkGuess">
+                    <%} else {%>
+                        <input class="button" type="submit" value="Play Again?" formaction="/endGame">
+                    <%}%>
+                </form>
+            <%} else {%>
+                <form id="gameForm" method="GET">
+                    <input class="button" type="submit" value="Start Game" formaction="/startGame">
+                </form>
             <%}%>
-        <%}%>
-        <h3>Guesses:</h3>
-        <%for(let i = 0; i < guesses.length; i++){%>
-            <p><%=guesses[i]%></p>
-        <%}%>
-        <%if(!locals.result) {%>
-            <%if(locals.close) {%>
-                <h4>Hints:</h4>
-                <%for(let q = 0; q < close.length; q++) {%>
-                    <p><%=close[q]%></p>
-                <%}%>
-            <%}%>
-            <input type="text" name="guess">
-            <input id="makeGuess" type="submit" value="Guess" formaction="/checkGuess">
-        <%} else {%>
-            <input id="restartGame" type="submit" value="Play Again?" formaction="/endGame">
-        <%}%>
-        </form>
-    <%} else {%>
-        <form id="gameForm" method="GET">
-            <input id="startGame" type="submit" value="Start Game" formaction="/startGame">
-        </form>
-    <%}%>
+        </div>
+    </div>
 </body>
 </html>
