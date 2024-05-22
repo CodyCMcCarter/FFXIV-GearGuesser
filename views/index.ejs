@@ -14,9 +14,11 @@
                 <form id="gameForm" method="POST">
                     <%if(locals.result) {%>
                         <h2 class="game-result"><%=result%></h2>
+                        <img class="gear-icon" src="<%=gearImage%>"/>
                         <h2 class="gear-name"><%=gearInfo.Name%></h2>
                     <%} else if(guesses.length >= 4 || locals.result){%>
                         <h2>Duty Commenced!</h2>
+                        <img class="gear-icon" src="<%=gearImage%>"/>
                         <%let splitName = gearInfo.Name.split(' ')%>
                         <%let i = 1%>
                         <h2 class="gear-name">
@@ -35,36 +37,52 @@
                         </h2>
                     <%} else {%>
                         <h2>Duty Commenced!</h2>
+                        <img class="gear-icon" src="<%=gearImage%>"/>
                     <%}%>
-                    <img class="gear-icon" src="<%=gearImage%>"/>
                     <%if(guesses.length >= 1 || locals.result) {%>
+                        <p class="equip-location"><%=gearInfo.ItemUICategory.Name%></p>
                         <p class="equip-lvl">Equip Level: <%=gearInfo.LevelEquip%></p>
                         <p class="item-lvl">Item Level: <%=gearInfo.LevelItem%></p>
                         <p class="release-patch">Released: <%=gearInfo.GamePatch.ExName%>, <%=gearInfo.GamePatch.Name%></p>
-                        <%if(guesses.length >= 2 || locals.result) {%>
+                    <%}%>
+                    <%if(guesses.length >= 3 || locals.result) {%>
+                        <div class="defense-stats">
+                            <div class="defense">
+                                <p>Defense</p>
+                                <p><%=gearInfo.DefensePhys%></p>
+                            </div>
+                            <div class="magic-defense">
+                                <p>Magic Defense</p>
+                                <p><%=gearInfo.DefenseMag%></p>
+                            </div>
+                        </div>
+                        <p>ITEM LEVEL <%=gearInfo.LevelItem%></p>
+                        <div class="equip-jobs">
+                            <h4>Jobs:</h4>
+                            <%let jobs = gearInfo.ClassJobCategory.Name.split(" ")%>
+                            <%jobs.forEach((job) => {%>
+                                <div class="job-container">
+                                    <img class="job-icon" src="icons/<%=job%>.png">
+                                    <p><%=job%></p>
+                                </div>
+                            <%})%>
+                        </div>
+                        <p>Lv. <%=gearInfo.LevelEquip%></p>
+                        <h4 class="stats-header">Stats:</h4>
+                        <ul class="stats-list">
+                            <%for(let i = 0; i < statNames.length; i++) {%>
+                                <li><%=statNames[i].replace(/([A-Z])/g, ' $1').trim()%>: <%=statValues[i]%></li>
+                            <%}%>
+                        </ul>
+                    <%}%>
+                    <%if(guesses.length >= 2 || locals.result) {%>
+                        <p>Materia</p>
+                        <p><%=gearInfo.MateriaSlotCount%></p>
+                        <div class="repair-info">
                             <p class="repair-job">Repair: </p>
                             <img class="job-icon" src="icons/<%=gearInfo.ClassJobRepair.NameEnglish%>.png">
                             <p><%=gearInfo.ClassJobRepair.NameEnglish%></p>
-                            <%if(guesses.length >= 3 || locals.result) {%>
-                                <h4 class="stats-header">Stats:</h4>
-                                <ul class="stats-list">
-                                    <%for(let i = 0; i < statNames.length; i++) {%>
-                                        <li><%=statNames[i].replace(/([A-Z])/g, ' $1').trim()%>: <%=statValues[i]%></li>
-                                    <%}%>
-                                </ul>
-                                <div class="equip-jobs">
-                                    <h4>Jobs:</h4>
-                                    <%let jobs = gearInfo.ClassJobCategory.Name.split(" ")%>
-                                    <%jobs.forEach((job) => {%>
-                                        <div class="job-container">
-                                            <img class="job-icon" src="icons/<%=job%>.png">
-                                            <p><%=job%></p>
-                                        </div>
-
-                                    <%})%>
-                                </div>
-                            <%}%>
-                        <%}%>
+                        </div>
                     <%}%>
                     <h3>Guesses:</h3>
                     <%for(let i = 0; i < guesses.length; i++){%>
