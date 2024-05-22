@@ -14,27 +14,33 @@
                 <form id="gameForm" method="POST">
                     <%if(locals.result) {%>
                         <h2 class="game-result"><%=result%></h2>
-                        <img class="gear-icon" src="<%=gearImage%>"/>
-                        <h2 class="gear-name"><%=gearInfo.Name%></h2>
+                        <div class="gear-header">
+                            <img class="gear-icon" src="<%=gearImage%>"/>
+                            <h2 class="gear-name"><%=gearInfo.Name%></h2>
+                        </div>
                     <%} else if(guesses.length >= 4 || locals.result){%>
                         <h2>Duty Commenced!</h2>
-                        <img class="gear-icon" src="<%=gearImage%>"/>
-                        <%let splitName = gearInfo.Name.split(' ')%>
-                        <%let i = 1%>
-                        <h2 class="gear-name">
-                            <%let clue = splitName[0] + " "%>
-                            <%if(clue === "The "){%>
-                                <%clue = clue + splitName[1] + " "%>
-                                <%i = 2%>
-                            <%}%>
-                            <%for(i; i < splitName.length; i++){%>
-                                <%for(let x = 0; x < splitName[i].length; x++) {%>
-                                    <%clue = clue + "_"%>
+                        <div class="gear-header">
+                            <div class="soulbind"></div>
+                            <div class="durability"></div>
+                            <img class="gear-icon" src="<%=gearImage%>"/>
+                            <%let splitName = gearInfo.Name.split(' ')%>
+                            <%let i = 1%>
+                            <h2 class="gear-name">
+                                <%let clue = splitName[0] + " "%>
+                                <%if(clue === "The "){%>
+                                    <%clue = clue + splitName[1] + " "%>
+                                    <%i = 2%>
                                 <%}%>
-                                <%clue = clue + " "%>
-                            <%}%>
-                            <%=clue%>
-                        </h2>
+                                <%for(i; i < splitName.length; i++){%>
+                                    <%for(let x = 0; x < splitName[i].length; x++) {%>
+                                        <%clue = clue + "_"%>
+                                    <%}%>
+                                    <%clue = clue + " "%>
+                                <%}%>
+                                <%=clue%>
+                            </h2>
+                        </div>
                     <%} else {%>
                         <h2>Duty Commenced!</h2>
                         <img class="gear-icon" src="<%=gearImage%>"/>

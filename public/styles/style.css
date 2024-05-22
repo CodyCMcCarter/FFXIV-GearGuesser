@@ -1,6 +1,7 @@
 body {
     background-color: #262626;
     color: #f7f7f7;
+    font-family: sans-serif;
 }
 
 h1 {
@@ -12,19 +13,55 @@ h2 {
     margin-top: 7px;
 }
 
+.soulbind {
+    background-color: #632425;
+    height: 80px;
+    width: 3px;
+    border: 2px solid black;
+    margin-left: -15px;
+}
+
+.durability {
+    background-color: #9ce310;
+    height: 80px;
+    width: 3px;
+    border: 2px solid black;
+}
+
+.gear-header {
+    display: flex;
+    height: 80px;
+}
+
+.equip-location {
+    margin-top: 10px;
+}
+
+.defense-stats {
+    display: flex;
+    gap: 30px;
+    align-self: flex-end;
+}
+
+.gear-name {
+    margin-top: 25px;
+    margin-left: 20px;
+}
+
 .game-border {
-    background-image: linear-gradient(to bottom, #d3cdb7 0%, #706756 5%, #706756 100%);
+    background-image: linear-gradient(to bottom, #d3cdb7 0%, #706756 20px, #706756 100%);
     border-radius: 7px;
     padding-top: 1px;
     padding-bottom: 1px;
+    width: 700px;
 }
 
 .game-background {
     border-radius: 7px;
     margin: 3px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#676767+0,393939+5,393939+100 */
-    background: linear-gradient(to bottom,  #676767 0%,#393939 5%,#393939 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(to bottom,  #676767 0%,#393939 20px,#393939 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 form {
