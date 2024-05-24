@@ -76,6 +76,7 @@ app.post("/endGame", (req, res) => {
     guesses = [];
     statNames = [];
     statValues = [];
+    close = []
     result = null;
     res.redirect("/startGame");
 });
