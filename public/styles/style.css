@@ -13,12 +13,17 @@ h2 {
     margin-top: 7px;
 }
 
+p {
+    margin: 1px;
+}
+
 .soulbind {
     background-color: #632425;
     height: 80px;
     width: 3px;
     border: 2px solid black;
     margin-left: -15px;
+    margin-top: -1px;
 }
 
 .durability {
@@ -26,6 +31,7 @@ h2 {
     height: 80px;
     width: 3px;
     border: 2px solid black;
+    margin-top: -1px;
 }
 
 .gear-header {
@@ -33,14 +39,43 @@ h2 {
     height: 80px;
 }
 
+.header {
+    margin-top: 5px;
+}
+
 .equip-location {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .defense-stats {
     display: flex;
-    gap: 30px;
+    gap: 5px;
     align-self: flex-end;
+}
+
+.defense {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.magic-defense {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.def-stat {
+    z-index: 1;
+}
+
+.bubble {
+    background-color: #4e4e4e;
+    height: 10px;
+    width: 130px;
+    border-radius: 10px;
+    position: relative;
+    top: -10px;
 }
 
 .gear-name {
@@ -60,8 +95,7 @@ h2 {
     border-radius: 7px;
     margin: 3px;
     padding: 10px 20px;
-    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#676767+0,393939+5,393939+100 */
-    background: linear-gradient(to bottom,  #676767 0%,#393939 20px,#393939 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(to bottom,  #676767 0%,#393939 20px,#393939 100%);
 }
 
 form {
@@ -75,13 +109,18 @@ form {
 }
 
 .button {
-    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#5b5b5b+0,4c4c4c+47,3f3e3e+50,464646+100 */
-    background: linear-gradient(to bottom,  #5b5b5b 0%,#4c4c4c 47%,#3f3e3e 50%,#464646 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(to bottom,  #5b5b5b 0%,#4c4c4c 47%,#3f3e3e 50%,#464646 100%);
     border-radius: 25px;
     border: 1px solid black;
-    color: white;
+    color: #dcd9ca;
     height: 25px;
     width: 125px;
+}
+
+.button:active {
+    background: linear-gradient(to bottom,  #3f3e3e 0%,#464646 47%,#2b2a2a 50%,#3f3e3e 100%);
+    border: 2px solid black;
+    color: #a0a0a0;
 }
 
 .guess-box {
@@ -96,6 +135,67 @@ form {
     width: 40px;
 }
 
-ul {
-    list-style: none;
+.equip-jobs {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.repair-info {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.job-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stats-list {
+    display: grid;
+    grid: 1fr 1fr / 1fr 1fr;
+}
+
+.materia-slot-border {
+    background-color: #86b222;
+    height: 22px;
+    width: 22px;
+    border-radius: 100%;
+    margin: 3px 0;
+}
+
+.materia-slot {
+    position: relative;
+    background: linear-gradient(#575557,#303032);
+    height: 18px;
+    width: 18px;
+    border-radius: 100%;
+    left: 2px;
+    top: 2px;
+}
+
+.tan {
+    color: #c4b49b;
+}
+
+.gray {
+    color: #a0a0a0;
+}
+
+.column-1 {
+    justify-self: end;
+}
+
+.section-line {
+    border-top: 1px solid #161616;
+    background-color: #515151;
+    height: 2px;
+    border-radius: 10px;
+}
+
+.user-input {
+    display: flex;
+    justify-content: space-between;
 }
