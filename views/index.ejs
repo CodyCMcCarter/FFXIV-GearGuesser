@@ -10,9 +10,12 @@
     <div class="game-border">
         <div class="game-background">
             <h1>FFXIV Gear Guesser</h1>
+            <!--Check for gearInfo to exist-->
             <%if(locals.gearInfo) {%>
                 <form id="gameForm" method="POST">
+                    <!--Check if there is a result-->
                     <%if(locals.result) {%>
+                        <!--Check whether the result is a win or lose-->
                         <%if(result === "Duty Complete!") {%>
                             <h2 class="game-result winner"><%=result%></h2>
                         <%} else {%>
@@ -22,18 +25,21 @@
                             <div class="soulbind"></div>
                             <div class="durability"></div>
                             <img class="gear-icon" src="<%=gearImage%>"/>
+                            <!--Check whether the result is win or lose-->
                             <%if(result === "Duty Complete!") {%>
                                 <h2 class="gear-name winner"><%=gearInfo.Name%></h2>
                             <%} else {%>
                                 <h2 class="gear-name loser"><%=gearInfo.Name%></h2>
                             <%}%>
                         </div>
+                    <!--Check if there are at least 4 guesses or a result-->
                     <%} else if(guesses.length >= 4 || locals.result){%>
                         <h2>Duty Commenced!</h2>
                         <div class="gear-header">
                             <div class="soulbind"></div>
                             <div class="durability"></div>
                             <img class="gear-icon" src="<%=gearImage%>"/>
+                            <!--Split the name so a clue can be given-->
                             <%let splitName = gearInfo.Name.split(' ')%>
                             <%let i = 1%>
                             <h2 class="gear-name">
@@ -51,6 +57,7 @@
                                 <%=clue%>
                             </h2>
                         </div>
+                    <!--If there is no result and less than 4 guesses, just show image-->
                     <%} else {%>
                         <h2>Duty Commenced!</h2>
                         <div class="gear-header">
@@ -59,9 +66,11 @@
                             <img class="gear-icon" src="<%=gearImage%>"/>
                         </div>
                     <%}%>
+                    <!--Show equip location if 1 or more guesses or a result-->
                     <%if(guesses.length >= 1 || locals.result) {%>
                         <p class="equip-location"><%=gearInfo.ItemUICategory.Name%></p>
                     <%}%>
+                    <!--Show defensive stats if 3 or more guesses or a result-->
                     <%if(guesses.length >= 3 || locals.result) {%>
                         <div class="defense-stats">
                             <div class="defense">
@@ -76,11 +85,13 @@
                             </div>
                         </div>
                     <%}%>
+                    <!--Show ilevel if 1 or more guesses or a result-->
                     <%if(guesses.length >= 1 || locals.result) {%>
                         <div class="ilevel-container">
                             <p>ITEM LEVEL <%=gearInfo.LevelItem%></p>
                         </div>
                     <%}%>
+                    <!--Show jobs and bonuses if 3 or more guesses or a result-->
                     <%if(guesses.length >= 3 || locals.result) {%>
                         <div class="equip-jobs">
                             <%let jobs = gearInfo.ClassJobCategory.Name.split(" ")%>
@@ -95,14 +106,17 @@
                         <p class="header gray">Bonuses</p>
                         <div class="section-line"></div>
                         <div class="stats-list">
+                            <!--Add space between stat names for displaying-->
                             <%for(let i = 0; i < statNames.length; i++) {%>
                                 <p class="column-<%=i%2%>"><%=statNames[i].replace(/([A-Z])/g, ' $1').trim()%> +<%=statValues[i]%></p>
                             <%}%>
                             </div>
                     <%}%>
+                    <!--Show materia and repair info if 2 or more guesses or a result-->
                     <%if(guesses.length >= 2 || locals.result) {%>
                         <p class="header gray">Materia</p>
                         <div class="section-line"></div>
+                        <!--Create a materia slot visual-->
                         <%for(let m = 0; m < gearInfo.MateriaSlotCount; m++) {%>
                             <div class="materia-slot-border">
                                 <div class="materia-slot"></div>
@@ -114,10 +128,12 @@
                             <p class="white"><%=gearInfo.ClassJobRepair.NameEnglish%></p>
                         </div>
                     <%}%>
+                    <!--Show release patch if 1 or more guesses or a result-->
                     <%if(guesses.length >= 1 || locals.result) {%>
                         <p class="release-patch">Released: <%=gearInfo.GamePatch.ExName%>, <%=gearInfo.GamePatch.Name%></p>
                     <%}%>
                     <h3>Guesses:</h3>
+                    <!--Display past guesses-->
                     <%for(let g = 0; g < guesses.length; g++){%>
                         <%if(guesses[g] === "") {%>
                             <p>[blank]</p>
@@ -125,6 +141,7 @@
                             <p><%=guesses[g]%></p>
                         <%}%>
                     <%}%>
+                    <!--If no result, show any correct words and whether they're in the right place.-->
                     <%if(!locals.result) {%>
                         <%if(locals.close) {%>
                             <h4>Hints:</h4>
@@ -136,12 +153,14 @@
                             <input class="guess-box" type="text" name="guess" aria-label="Enter guess text" placeholder="Make a guess" autofocus>
                             <input class="button" type="submit" value="Guess" formaction="/checkGuess">
                         </div>
+                    <!--Show play again button-->
                     <%} else {%>
                         <div class="user-input">
                             <input id="startGame" class="button" type="submit" value="Play Again?" formaction="/endGame">
                         </div>
                     <%}%>
                 </form>
+            <!--Show start game buttom on fresh page-->
             <%} else {%>
                 <form id="gameForm" method="GET">
                     <div class="user-input">
@@ -153,6 +172,7 @@
     </div>
 </body>
 <script type="text/javascript" language="javascript">
+    //Disable the start game button to prevent constant api requests
     document.getElementById("startGame").onmouseup = function() {
         setTimeout(() => {this.disabled = true}, 1);;
         setTimeout(() => {this.disabled = false}, 1000);
