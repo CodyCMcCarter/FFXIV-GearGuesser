@@ -13,12 +13,20 @@
             <%if(locals.gearInfo) {%>
                 <form id="gameForm" method="POST">
                     <%if(locals.result) {%>
-                        <h2 class="game-result"><%=result%></h2>
+                        <%if(result === "Duty Complete!") {%>
+                            <h2 class="game-result winner"><%=result%></h2>
+                        <%} else {%>
+                            <h2 class="game-result loser"><%=result%></h2>
+                        <%}%>
                         <div class="gear-header">
                             <div class="soulbind"></div>
                             <div class="durability"></div>
                             <img class="gear-icon" src="<%=gearImage%>"/>
-                            <h2 class="gear-name"><%=gearInfo.Name%></h2>
+                            <%if(result === "Duty Complete!") {%>
+                                <h2 class="gear-name winner"><%=gearInfo.Name%></h2>
+                            <%} else {%>
+                                <h2 class="gear-name loser"><%=gearInfo.Name%></h2>
+                            <%}%>
                         </div>
                     <%} else if(guesses.length >= 4 || locals.result){%>
                         <h2>Duty Commenced!</h2>
@@ -125,7 +133,7 @@
                             <%}%>
                         <%}%>
                         <div class="user-input">
-                            <input class="guess-box" type="text" name="guess" aria-label="Enter guess text" placeholder="Make a guess">
+                            <input class="guess-box" type="text" name="guess" aria-label="Enter guess text" placeholder="Make a guess" autofocus>
                             <input class="button" type="submit" value="Guess" formaction="/checkGuess">
                         </div>
                     <%} else {%>

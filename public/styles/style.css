@@ -199,3 +199,11 @@ form {
     display: flex;
     justify-content: space-between;
 }
+
+.winner {
+    color: #80f080;
+}
+
+.loser {
+    color: #a980f0;
+}
